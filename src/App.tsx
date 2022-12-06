@@ -18,11 +18,7 @@ const StyledChampions = styled(Champions)`
 `;
 
 function App() {
-  const [champions, setChampions] = useState<Character[]>([
-    characters[0],
-    characters[1],
-    characters[2],
-  ]);
+  const [champions, setChampions] = useState<Character[]>([]);
 
   const onChampionRemoveClick = (character: Character) => {
     setChampions((champions) =>
