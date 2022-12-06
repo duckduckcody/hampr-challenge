@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { CharacterTag } from '../../types';
 
-const Container = styled.span`
+const TagBadgeContainer = styled.span`
   background: #ffffff;
   border: 1px solid #217aff;
   border-radius: 20px;
@@ -15,5 +15,33 @@ export interface TagBadgeProps {
 }
 
 export const TagBadge: FC<TagBadgeProps> = ({ tag }) => (
-  <Container>{tag.tag_name}</Container>
+  <TagBadgeContainer>{tag.tag_name}</TagBadgeContainer>
+);
+
+const TagButtonContainer = styled(TagBadgeContainer).attrs({
+  as: 'button',
+})<{ selected: boolean }>`
+  background: #ffffff;
+  border: 1px solid #217aff;
+  border-radius: 20px;
+  color: ${(p) => (p.selected ? 'white' : '#217aff')};
+  padding: 10px 14px;
+  cursor: pointer;
+  background-color: ${(p) => (p.selected ? '#217aff' : 'white')};
+`;
+
+export interface TagButtonProps {
+  tag: string;
+  selected: boolean;
+  onTagClick: (tag: string) => void;
+}
+
+export const TagButton: FC<TagButtonProps> = ({
+  tag,
+  selected,
+  onTagClick,
+}) => (
+  <TagButtonContainer selected={selected} onClick={() => onTagClick(tag)}>
+    {tag}
+  </TagButtonContainer>
 );

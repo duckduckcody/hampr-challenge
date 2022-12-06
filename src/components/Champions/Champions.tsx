@@ -58,9 +58,9 @@ export const Champions: FC<ChampionsProps> = ({
 
       <ChampionsContainer>
         {championsRange.map((index) => (
-          <ChampionContainer>
+          // TODO: fix this
+          <ChampionContainer key={champions[index]?.id ?? index}>
             <ChampionImage
-              key={champions[index]?.id ?? index}
               champion={champions[index]}
               onRemoveClick={onChampionRemoveClick}
             />
