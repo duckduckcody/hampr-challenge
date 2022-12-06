@@ -19,11 +19,24 @@ const Heading = styled.h1`
   margin-bottom: 16px;
 `;
 
-const ChampionImages = styled.div`
+const ChampionsContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
   gap: 8px;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
+`;
+
+const ChampionContainer = styled.div`
+  flex-flow: column nowrap;
+  max-width: 80px;
+`;
+
+const ChampionName = styled.p`
+  margin: 0;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
 `;
 
 interface ChampionsProps {
@@ -43,15 +56,20 @@ export const Champions: FC<ChampionsProps> = ({
     <Container className={className}>
       <Heading>Your Champions!</Heading>
 
-      <ChampionImages>
+      <ChampionsContainer>
         {championsRange.map((index) => (
-          <ChampionImage
-            key={champions[index]?.id ?? index}
-            champion={champions[index]}
-            onRemoveClick={onChampionRemoveClick}
-          />
+          <ChampionContainer>
+            <ChampionImage
+              key={champions[index]?.id ?? index}
+              champion={champions[index]}
+              onRemoveClick={onChampionRemoveClick}
+            />
+            <ChampionName>
+              {champions[index] && champions[index].name}
+            </ChampionName>
+          </ChampionContainer>
         ))}
-      </ChampionImages>
+      </ChampionsContainer>
 
       <ChampionAverages champions={champions} />
     </Container>

@@ -14,10 +14,6 @@ const NameContainer = styled.td`
   padding: 24px 0 24px 24px;
 `;
 
-const Input = styled.input`
-  margin-right: 29px;
-`;
-
 const Name = styled.span`
   font-weight: 700;
   font-size: 20px;

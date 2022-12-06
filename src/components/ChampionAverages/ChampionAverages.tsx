@@ -29,13 +29,14 @@ const AverageName = styled.p`
   text-align: center;
 `;
 
-const AverageValue = styled.p`
+const AverageValue = styled.p<{ highlight?: boolean }>`
   all: unset;
 
   font-weight: 700;
   font-size: 24px;
   line-height: 28px;
   text-align: center;
+  color: ${(p) => (p.highlight ? 'red' : 'black')};
 `;
 
 const Disclaimer = styled.span`
@@ -51,7 +52,7 @@ export interface ChampionAveragesProps {
 
 export const ChampionAverages: FC<ChampionAveragesProps> = ({ champions }) => {
   const averages = useMemo(() => {
-    const totals = champions.reduce(
+    const totals = champions.reduce<Record<string, number>>(
       (prev, current) => {
         const power = current.abilities.find(
           (ability) => ability.abilityName === 'Power'
@@ -85,8 +86,7 @@ export const ChampionAverages: FC<ChampionAveragesProps> = ({ champions }) => {
     );
 
     for (const [key, value] of Object.entries(totals)) {
-      // @ts-ignore
-      totals[key] = (value / champions.length).toFixed(2);
+      totals[key] = Number((value / champions.length).toFixed(2));
     }
 
     return totals;
@@ -98,7 +98,7 @@ export const ChampionAverages: FC<ChampionAveragesProps> = ({ champions }) => {
         {Object.entries(averages).map(([key, value]) => (
           <AverageContainer key={key}>
             <AverageName>{key}</AverageName>
-            <AverageValue>{value}</AverageValue>
+            <AverageValue highlight={value === 10}>{value}</AverageValue>
           </AverageContainer>
         ))}
       </AveragesContainer>
