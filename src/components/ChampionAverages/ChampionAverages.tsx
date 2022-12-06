@@ -11,7 +11,7 @@ const Container = styled.div`
 const AveragesContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  gap: 8px;
+  gap: 34px;
 `;
 
 const AverageContainer = styled.div`
