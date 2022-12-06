@@ -23,5 +23,6 @@ export interface Character {
   thumbnail: string;
   universe: string;
   abilities: CharacterAbility[];
+  // not all characters have tags. See App.tsx comment for more info.
   tags?: CharacterTag[];
 }

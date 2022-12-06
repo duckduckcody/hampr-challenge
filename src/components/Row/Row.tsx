@@ -4,15 +4,14 @@ import { Character } from '../../types';
 import { TagBadge } from '../TagBadge/TagBadge';
 import { Thumbnail } from '../Thumbnail/Thumbnail';
 
-const Container = styled.tr`
-  align-items: center;
-  /* justify-content: ; */
-`;
+const Container = styled.tr``;
 
 const NameContainer = styled.td`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+
+  padding: 24px 0 24px 24px;
 `;
 
 const Input = styled.input`
@@ -27,7 +26,11 @@ const Name = styled.span`
 `;
 
 const TagsContainer = styled.td`
-  gap: 15px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  gap: 8px;
 `;
 
 const AbilityScore = styled.td<{ highlight?: boolean }>`
@@ -35,6 +38,7 @@ const AbilityScore = styled.td<{ highlight?: boolean }>`
   font-size: 24px;
   line-height: 28px;
   color: ${(p) => (p.highlight ? '#FF0000' : '#000000')};
+  text-align: center;
 `;
 
 export interface RowProps {
@@ -42,7 +46,9 @@ export interface RowProps {
 }
 
 export const Row: FC<RowProps> = ({ character }) => {
+  // an api's only concern is data.
   // don't rely on api response for order, guarantee order manually.
+  // and inside a memo so these finds are only run once.
   const abilities = useMemo(() => {
     const power = character.abilities.find(
       (ability) => ability.abilityName === 'Power'
@@ -70,16 +76,17 @@ export const Row: FC<RowProps> = ({ character }) => {
   return (
     <Container>
       <NameContainer>
-        <Input type='checkbox' />
         <Thumbnail src={character.thumbnail} />
         <Name>{character.name}</Name>
       </NameContainer>
 
-      <TagsContainer>
-        {character.tags?.map((tag) => (
-          <TagBadge tag={tag} key={tag.slot} />
-        ))}
-      </TagsContainer>
+      <td>
+        <TagsContainer>
+          {character.tags?.map((tag) => (
+            <TagBadge tag={tag} key={tag.slot} />
+          ))}
+        </TagsContainer>
+      </td>
 
       {abilities.map((ability) => (
         <AbilityScore
@@ -89,6 +96,10 @@ export const Row: FC<RowProps> = ({ character }) => {
           {ability?.abilityScore}
         </AbilityScore>
       ))}
+
+      <td>
+        <button>Add</button>
+      </td>
     </Container>
   );
 };

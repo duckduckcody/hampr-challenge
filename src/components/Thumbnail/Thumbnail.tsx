@@ -10,6 +10,9 @@ const Image = styled.img`
 
 export interface ThumbnailProps {
   src: string;
+  className?: string;
 }
 
-export const Thumbnail: FC<ThumbnailProps> = ({ src }) => <Image src={src} />;
+export const Thumbnail: FC<ThumbnailProps> = ({ src, className }) => (
+  <Image className={className} src={src} />
+);

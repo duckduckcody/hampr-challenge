@@ -2,13 +2,12 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { CharacterTag } from '../../types';
 
-const Container = styled.div`
+const Container = styled.span`
   background: #ffffff;
   border: 1px solid #217aff;
   border-radius: 20px;
   color: #217aff;
   padding: 10px 14px;
-  display: inline-block;
 `;
 
 export interface TagBadgeProps {
