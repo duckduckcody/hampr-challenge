@@ -43,6 +43,10 @@ const AbilityScore = styled.td<{ highlight?: boolean }>`
   text-align: center;
 `;
 
+const ActionCell = styled.td`
+  padding: 0 12px 0 0;
+`;
+
 const Button = styled.button`
   width: 75px;
   padding: 5px 0;
@@ -124,7 +128,7 @@ export const Row: FC<RowProps> = ({
         </AbilityScore>
       ))}
 
-      <td>
+      <ActionCell>
         {isAChampion && (
           <Button onClick={() => onChampionRemoveClick(character)}>
             Remove
@@ -138,7 +142,7 @@ export const Row: FC<RowProps> = ({
         {!isAChampion && !championsAreFull && (
           <Button onClick={() => onCharacterAdd(character)}>Add</Button>
         )}
-      </td>
+      </ActionCell>
     </Container>
   );
 };
