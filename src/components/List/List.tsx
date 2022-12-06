@@ -7,6 +7,7 @@ const Container = styled.table`
   max-width: 1080px;
   width: 100%;
   margin: 0 auto;
+  border-spacing: 0;
 `;
 
 const TableHeading = styled.th`

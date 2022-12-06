@@ -86,7 +86,10 @@ export const ChampionAverages: FC<ChampionAveragesProps> = ({ champions }) => {
     );
 
     for (const [key, value] of Object.entries(totals)) {
-      totals[key] = Number((value / champions.length).toFixed(2));
+      const average = value / champions.length;
+      if (!isNaN(average)) {
+        totals[key] = Number(average.toFixed(2));
+      }
     }
 
     return totals;

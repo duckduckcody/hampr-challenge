@@ -4,7 +4,13 @@ import { Character } from '../../types';
 import { TagBadge } from '../TagBadge/TagBadge';
 import { Thumbnail } from '../Thumbnail/Thumbnail';
 
-const Container = styled.tr``;
+const Container = styled.tr<{ highlight: boolean }>`
+  background: ${(p) => (p.highlight ? '#EDF5FF' : 'white')};
+
+  &:hover {
+    background: #f5f9ff;
+  }
+`;
 
 const NameContainer = styled.td`
   display: flex;
@@ -34,6 +40,16 @@ const AbilityScore = styled.td<{ highlight?: boolean }>`
   font-size: 24px;
   line-height: 28px;
   color: ${(p) => (p.highlight ? '#FF0000' : '#000000')};
+  text-align: center;
+`;
+
+const Button = styled.button`
+  width: 75px;
+  padding: 5px 0;
+`;
+
+const FullSquadText = styled.p`
+  margin: 0;
   text-align: center;
 `;
 
@@ -85,7 +101,7 @@ export const Row: FC<RowProps> = ({
   const championsAreFull = champions.length === 6;
 
   return (
-    <Container>
+    <Container highlight={isAChampion}>
       <NameContainer>
         <Thumbnail src={character.thumbnail} />
         <Name>{character.name}</Name>
@@ -110,15 +126,17 @@ export const Row: FC<RowProps> = ({
 
       <td>
         {isAChampion && (
-          <button onClick={() => onChampionRemoveClick(character)}>
+          <Button onClick={() => onChampionRemoveClick(character)}>
             Remove
-          </button>
+          </Button>
         )}
 
-        {!isAChampion && championsAreFull && <span>Squad is full</span>}
+        {!isAChampion && championsAreFull && (
+          <FullSquadText>Squad is full</FullSquadText>
+        )}
 
         {!isAChampion && !championsAreFull && (
-          <button onClick={() => onCharacterAdd(character)}>Add</button>
+          <Button onClick={() => onCharacterAdd(character)}>Add</Button>
         )}
       </td>
     </Container>
