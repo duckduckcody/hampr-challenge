@@ -39,9 +39,17 @@ const AbilityScore = styled.td<{ highlight?: boolean }>`
 
 export interface RowProps {
   character: Character;
+  onCharacterAdd: (character: Character) => void;
+  champions: Character[];
+  onChampionRemoveClick: (character: Character) => void;
 }
 
-export const Row: FC<RowProps> = ({ character }) => {
+export const Row: FC<RowProps> = ({
+  character,
+  onCharacterAdd,
+  champions,
+  onChampionRemoveClick,
+}) => {
   // an api's only concern is data.
   // don't rely on api response for order, guarantee order manually.
   // and inside a memo so these finds are only run once.
@@ -67,7 +75,14 @@ export const Row: FC<RowProps> = ({ character }) => {
     );
 
     return [power, mobility, technique, survivability, energy];
-  }, [character]);
+  }, [character.abilities]);
+
+  const isAChampion = useMemo(
+    () => champions.some((champion) => champion.id === character.id),
+    [champions, character.id]
+  );
+
+  const championsAreFull = champions.length === 6;
 
   return (
     <Container>
@@ -94,7 +109,17 @@ export const Row: FC<RowProps> = ({ character }) => {
       ))}
 
       <td>
-        <button>Add</button>
+        {isAChampion && (
+          <button onClick={() => onChampionRemoveClick(character)}>
+            Remove
+          </button>
+        )}
+
+        {!isAChampion && championsAreFull && <span>Squad is full</span>}
+
+        {!isAChampion && !championsAreFull && (
+          <button onClick={() => onCharacterAdd(character)}>Add</button>
+        )}
       </td>
     </Container>
   );

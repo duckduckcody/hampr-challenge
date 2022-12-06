@@ -30,6 +30,16 @@ function App() {
     );
   };
 
+  const onCharacterAdd = (character: Character) => {
+    const isNewCharacter = !champions.some(
+      (champion) => champion.id === character.id
+    );
+
+    if (isNewCharacter && champions.length < 6) {
+      setChampions((champions) => champions.concat(character));
+    }
+  };
+
   return (
     <div>
       <Masthead />
@@ -37,7 +47,12 @@ function App() {
         onChampionRemoveClick={onChampionRemoveClick}
         champions={champions}
       />
-      <List characters={characters} />
+      <List
+        characters={characters}
+        onCharacterAdd={onCharacterAdd}
+        onChampionRemoveClick={onChampionRemoveClick}
+        champions={champions}
+      />
     </div>
   );
 }

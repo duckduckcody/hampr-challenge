@@ -30,9 +30,17 @@ const TableBody = styled.tbody`
 
 export interface ListProps {
   characters: Character[];
+  onCharacterAdd: (character: Character) => void;
+  champions: Character[];
+  onChampionRemoveClick: (character: Character) => void;
 }
 
-export const List: FC<ListProps> = ({ characters }) => (
+export const List: FC<ListProps> = ({
+  characters,
+  onCharacterAdd,
+  champions,
+  onChampionRemoveClick,
+}) => (
   <Container>
     <thead>
       <tr>
@@ -48,7 +56,13 @@ export const List: FC<ListProps> = ({ characters }) => (
 
     <TableBody>
       {characters.map((character) => (
-        <Row character={character} key={character.id} />
+        <Row
+          key={character.id}
+          character={character}
+          onCharacterAdd={onCharacterAdd}
+          champions={champions}
+          onChampionRemoveClick={onChampionRemoveClick}
+        />
       ))}
     </TableBody>
   </Container>
