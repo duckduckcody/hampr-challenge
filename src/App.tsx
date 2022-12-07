@@ -17,6 +17,9 @@ const characters: Character[] = jsonData as Character[];
 // for time I haven't made a zod parser and instead changed the type.
 // (the correct way would be to make a parser)
 
+// being able to click on the headers of the ability to sort them
+// in descending and ascending order would be a good addition
+
 const StyledChampions = styled(Champions)`
   padding: 24px 0 38px 0;
 `;
