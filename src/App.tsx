@@ -23,6 +23,10 @@ const characters: Character[] = jsonData as Character[];
 // have the layout of the page be the parents responsibility
 // this keeps a component a component as it doesn't know about its parents implementation
 // (in this case the parents presentation implementation)
+const Container = styled.div`
+  margin: 0 0 64px 0;
+`;
+
 const StyledChampions = styled(Champions)`
   padding: 24px 0 38px 0;
 `;
@@ -123,8 +127,9 @@ function App() {
   };
 
   return (
-    <div>
+    <Container>
       <Masthead />
+
       <StyledChampions
         onChampionRemoveClick={onChampionRemoveClick}
         champions={champions}
@@ -153,7 +158,7 @@ function App() {
       {filteredCharacters.length === 0 && (
         <NoResultsText>No characters match your search</NoResultsText>
       )}
-    </div>
+    </Container>
   );
 }
 

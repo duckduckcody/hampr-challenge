@@ -17,7 +17,7 @@ const NameContainer = styled.td`
   flex-flow: row nowrap;
   align-items: center;
 
-  padding: 24px 0 24px 24px;
+  padding: 24px 12px 24px 24px;
 `;
 
 const Name = styled.span`
@@ -27,7 +27,7 @@ const Name = styled.span`
   margin-left: 26px;
 `;
 
-const TagsContainer = styled.td`
+const TagsContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
