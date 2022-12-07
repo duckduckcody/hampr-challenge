@@ -57,13 +57,13 @@ function App() {
   }, [search]);
 
   // YOU ARE UP TO HERE
-  useEffect(() => {
-    setFilteredCharacters(
-      characters.filter((character) =>
-        character.tags?.some((characterTag) => {})
-      )
-    );
-  }, [selectedTags]);
+  // useEffect(() => {
+  //   setFilteredCharacters(
+  //     characters.filter((character) =>
+  //       character.tags?.some((characterTag) => {})
+  //     )
+  //   );
+  // }, [selectedTags]);
 
   const onChampionRemoveClick = (character: Character) => {
     setChampions((champions) =>
