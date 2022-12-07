@@ -26,7 +26,8 @@ const StyledSearch = styled(Search)`
 `;
 
 const StyledTagsFilter = styled(TagsFilter)`
-  padding: 0 44px 58px 44px;
+  margin: 0 auto 58px auto;
+  max-width: 1000px;
 `;
 
 const NoResultsText = styled.p`
@@ -62,13 +63,12 @@ function App() {
         );
       }
 
-      // create an exclusive filter
       if (selectedTags.length) {
-        // filteredCharacters = filteredCharacters.filter((character) => {
-        //   const sameLength = selectedTags.length = character.
-        // }
-        // character.tags?.some((tag) => selectedTags.includes(tag.tag_name))
-        // );
+        filteredCharacters = filteredCharacters.filter((character) =>
+          selectedTags.every((selectedTag) =>
+            character.tags?.some((tag) => tag.tag_name === selectedTag)
+          )
+        );
       }
 
       return filteredCharacters;

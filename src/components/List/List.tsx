@@ -12,15 +12,16 @@ const Container = styled.table`
 
 const TableHeading = styled.th`
   text-align: left;
-  font-weight: 700;
+  font-weight: normal;
   font-size: 20px;
-  line-height: 23px;
   padding-bottom: 10px;
 `;
 
 const TableHeadingAbility = styled(TableHeading)`
   text-align: center;
   width: 100px;
+  padding-right: 10px;
+  padding-left: 10px;
 `;
 
 const TableBody = styled.tbody`

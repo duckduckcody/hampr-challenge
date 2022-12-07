@@ -8,6 +8,7 @@ const TagBadgeContainer = styled.span`
   border-radius: 20px;
   color: #217aff;
   padding: 10px 14px;
+  text-transform: capitalize;
 `;
 
 export interface TagBadgeProps {
@@ -21,14 +22,9 @@ export const TagBadge: FC<TagBadgeProps> = ({ tag }) => (
 const TagButtonContainer = styled(TagBadgeContainer).attrs({
   as: 'button',
 })<{ selected: boolean }>`
-  background: #ffffff;
-  border: 1px solid #217aff;
-  border-radius: 20px;
   color: ${(p) => (p.selected ? 'white' : '#217aff')};
-  padding: 10px 14px;
   cursor: pointer;
   background-color: ${(p) => (p.selected ? '#217aff' : 'white')};
-  text-transform: capitalize;
 `;
 
 export interface TagButtonProps {
