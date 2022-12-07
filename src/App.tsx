@@ -9,17 +9,20 @@ import jsonData from './data/characters.json';
 import { useTags } from './hooks/useTags';
 import type { Character } from './types';
 
-// when using any kind of external data in Typescript you need to first validate it.
-// use something like zod to check the structure of the json matches the type before using.
+// when using any kind of external data in Typescript you need to first validate it
+// use something like zod to check the structure of the json matches the type before using
 const characters: Character[] = jsonData as Character[];
 // here the json doesn't match the type as some characters don't always have tags
 // also Android 21 (Lab Coat) doesn't have a thumbnail image
-// for time I haven't made a zod parser and instead changed the type.
+// for time I haven't made a zod parser and instead changed the type
 // (the correct way would be to make a parser)
 
 // being able to click on the headers of the ability to sort them
 // in descending and ascending order would be a good addition
 
+// have the layout of the page be the parents responsibility
+// this keeps a component a component as it doesn't know about its parents implementation
+// (in this case the parents presentation implementation)
 const StyledChampions = styled(Champions)`
   padding: 24px 0 38px 0;
 `;
@@ -46,9 +49,11 @@ function App() {
 
   const tags = useTags(characters);
 
+  // filter characters based on text search and selected tags
   useEffect(() => {
     setFilteredCharacters(() => {
       let filteredCharacters = characters;
+      // filter on text search
       if (search) {
         filteredCharacters = filteredCharacters.filter((character) => {
           const nameIncludes = character.name.includes(search);
@@ -60,12 +65,14 @@ function App() {
         });
       }
 
+      // filter on 'My Team' tag
       if (myTeamFilter) {
         filteredCharacters = filteredCharacters.filter((character) =>
           champions.some((champion) => champion.id === character.id)
         );
       }
 
+      // filter on rest of selected tags
       if (selectedTags.length) {
         filteredCharacters = filteredCharacters.filter((character) =>
           selectedTags.every((selectedTag) =>
