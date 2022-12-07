@@ -28,6 +28,7 @@ const TagButtonContainer = styled(TagBadgeContainer).attrs({
   padding: 10px 14px;
   cursor: pointer;
   background-color: ${(p) => (p.selected ? '#217aff' : 'white')};
+  text-transform: capitalize;
 `;
 
 export interface TagButtonProps {

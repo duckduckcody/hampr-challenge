@@ -11,6 +11,7 @@ import type { Character } from './types';
 
 // TODO
 // use tag slots
+// tags must equal all of selected not just one
 
 // when using any kind of external data in Typescript you need to first validate it.
 // use something like zod to check the structure of the json matches the type before using.
@@ -40,30 +41,39 @@ function App() {
   const [filteredCharacters, setFilteredCharacters] = useState(characters);
   const [search, setSearch] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [myTeamFilter, setMyTeamFilter] = useState(false);
 
   const tags = useTags(characters);
 
   useEffect(() => {
-    setFilteredCharacters(
-      characters.filter((character) => {
-        const nameIncludes = character.name.includes(search);
-        const tagIncludes = character.tags?.some((tag) =>
-          tag.tag_name.includes(search)
+    setFilteredCharacters(() => {
+      let filteredCharacters = characters;
+      if (search) {
+        filteredCharacters = filteredCharacters.filter((character) => {
+          const nameIncludes = character.name.includes(search);
+          const tagIncludes = character.tags?.some((tag) =>
+            tag.tag_name.includes(search)
+          );
+
+          return nameIncludes || tagIncludes;
+        });
+      }
+
+      if (myTeamFilter) {
+        filteredCharacters = filteredCharacters.filter((character) =>
+          champions.some((champion) => champion.id === character.id)
         );
+      }
 
-        return nameIncludes || tagIncludes;
-      })
-    );
-  }, [search]);
+      if (selectedTags.length) {
+        filteredCharacters = filteredCharacters.filter((character) =>
+          character.tags?.some((tag) => selectedTags.includes(tag.tag_name))
+        );
+      }
 
-  // YOU ARE UP TO HERE
-  // useEffect(() => {
-  //   setFilteredCharacters(
-  //     characters.filter((character) =>
-  //       character.tags?.some((characterTag) => {})
-  //     )
-  //   );
-  // }, [selectedTags]);
+      return filteredCharacters;
+    });
+  }, [champions, myTeamFilter, search, selectedTags]);
 
   const onChampionRemoveClick = (character: Character) => {
     setChampions((champions) =>
@@ -93,6 +103,15 @@ function App() {
     }
   };
 
+  const onTagsFilterClearAllClick = () => {
+    setSelectedTags([]);
+    setMyTeamFilter(false);
+  };
+
+  const onMyTeamFilterClick = () => {
+    setMyTeamFilter((myTeamFiler) => !myTeamFiler);
+  };
+
   return (
     <div>
       <Masthead />
@@ -107,6 +126,9 @@ function App() {
         tags={tags}
         onTagClick={onTagClick}
         selectedTags={selectedTags}
+        onTagsFilterClearAllClick={onTagsFilterClearAllClick}
+        myTeamFilter={myTeamFilter}
+        onMyTeamFilterClick={onMyTeamFilterClick}
       />
 
       {filteredCharacters.length > 0 && (
