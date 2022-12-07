@@ -9,13 +9,11 @@ import jsonData from './data/characters.json';
 import { useTags } from './hooks/useTags';
 import type { Character } from './types';
 
-// TODO
-// tags must equal all of selected not just one
-
 // when using any kind of external data in Typescript you need to first validate it.
 // use something like zod to check the structure of the json matches the type before using.
 const characters: Character[] = jsonData as Character[];
 // here the json doesn't match the type as some characters don't always have tags
+// also Android 21 (Lab Coat) doesn't have a thumbnail image
 // for time I haven't made a zod parser and instead changed the type.
 // (the correct way would be to make a parser)
 
@@ -64,10 +62,13 @@ function App() {
         );
       }
 
+      // create an exclusive filter
       if (selectedTags.length) {
-        filteredCharacters = filteredCharacters.filter((character) =>
-          character.tags?.some((tag) => selectedTags.includes(tag.tag_name))
-        );
+        // filteredCharacters = filteredCharacters.filter((character) => {
+        //   const sameLength = selectedTags.length = character.
+        // }
+        // character.tags?.some((tag) => selectedTags.includes(tag.tag_name))
+        // );
       }
 
       return filteredCharacters;
