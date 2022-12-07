@@ -10,7 +10,6 @@ import { useTags } from './hooks/useTags';
 import type { Character } from './types';
 
 // TODO
-// use tag slots
 // tags must equal all of selected not just one
 
 // when using any kind of external data in Typescript you need to first validate it.

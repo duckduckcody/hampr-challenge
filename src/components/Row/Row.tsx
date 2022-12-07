@@ -104,6 +104,9 @@ export const Row: FC<RowProps> = ({
 
   const championsAreFull = champions.length === 6;
 
+  // im assuming that 'slot' indicates the order that tags should be
+  const sortedTags = character.tags?.sort((a, b) => a.slot - b.slot);
+
   return (
     <Container highlight={isAChampion}>
       <NameContainer>
@@ -113,7 +116,7 @@ export const Row: FC<RowProps> = ({
 
       <td>
         <TagsContainer>
-          {character.tags?.map((tag) => (
+          {sortedTags?.map((tag) => (
             <TagBadge tag={tag} key={tag.slot} />
           ))}
         </TagsContainer>
