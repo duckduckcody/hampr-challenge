@@ -50,6 +50,7 @@ export const Champions: FC<ChampionsProps> = ({
   onChampionRemoveClick,
   className,
 }) => {
+  // always render 6 image borders to represent that you should select 6 champions
   const championsRange = Array.from({ length: 6 }, (x, i) => i);
 
   return (

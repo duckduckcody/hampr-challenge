@@ -96,6 +96,8 @@ function App() {
   };
 
   const onCharacterAdd = (character: Character) => {
+    // only add character if it isn't already added
+    // and less than 6 champions
     const isNewCharacter = !champions.some(
       (champion) => champion.id === character.id
     );
@@ -108,10 +110,12 @@ function App() {
   const onSearchChange = (value: string) => setSearch(value);
 
   const onTagClick = (tag: string) => {
+    // unselect tag if selected
     if (selectedTags.includes(tag)) {
       setSelectedTags((selectedTags) =>
         selectedTags.filter((selectedTag) => selectedTag !== tag)
       );
+      // select tag if unselected
     } else {
       setSelectedTags((selectedTags) => selectedTags.concat(tag));
     }

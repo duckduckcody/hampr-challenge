@@ -1,7 +1,12 @@
 import { useMemo } from 'react';
 import { Character } from '../types';
 
-export const useTags = (characters: Character[]) => {
+/**
+ * get all unique tags from the characters data
+ * @param characters the character data
+ * @returns string array of tag names
+ */
+export const useTags = (characters: Character[]): string[] => {
   return useMemo(() => {
     const uniqueTags: string[] = [];
 
